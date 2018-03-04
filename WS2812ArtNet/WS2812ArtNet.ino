@@ -10,8 +10,8 @@ Hacked by SCL from
 #include <EEPROM.h>
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#include "./ArtnetWifi.h"
-#include "./ArduinoOTAMgr.h"
+#include "ArtnetWifi.h"
+#include "ArduinoOTAMgr.h"
 
 //
 // --- begin configuration
