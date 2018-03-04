@@ -19,10 +19,10 @@ Hacked by SCL from
 #define WIFI_MGR // use AP mode to configure via captive portal
 #define OTA_UPDATE // OTA firmware update
 
-#define PIXEL_CNT 148 //16 // number of LED's
+#define PIXEL_CNT 99 //16 // number of LED's
 
-#define PIN_DATA  14 
-#define PIN_LED    0
+#define PIN_DATA  1 
+#define PIN_LED   2
 // n.b. pin 15 internal pullup doesn't seem to work so shouldn't be used for reset
 #define PIN_FACTORY_RESET 12 // ground this pin to wipe out EEPROM & WiFi settings
 
