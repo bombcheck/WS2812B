@@ -1,4 +1,4 @@
-#include "./ArduinoOTAMgr.h"
+#include "ArduinoOTAMgr.h"
 
 void ArduinoOTAMgr::boot(const char *hostname,const char *pw)
 {

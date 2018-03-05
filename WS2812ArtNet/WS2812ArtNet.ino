@@ -217,7 +217,7 @@ uint8_t Btn::longPress()
 }
 
 #ifdef WIFI_MGR
-#include "./WiFiManager.h"          // https://github.com/tzapu/WiFiManager
+#include "WiFiManager.h"          // https://github.com/tzapu/WiFiManager
 
 typedef struct config_parms {
 int startUniverse;

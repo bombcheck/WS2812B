@@ -10,7 +10,7 @@
    Licensed under MIT license
  **************************************************************/
 
-#include "./WiFiManager.h"
+#include "WiFiManager.h"
 
 WiFiManagerParameter::WiFiManagerParameter(const char *custom) {
   _id = NULL;
