@@ -19,7 +19,7 @@ Hacked by SCL from
 #define WIFI_MGR // use AP mode to configure via captive portal
 #define OTA_UPDATE // OTA firmware update
 
-#define PIXEL_CNT 99 //16 // number of LED's
+#define PIXEL_CNT 64 // number of LED's
 
 #define PIN_DATA  1 
 #define PIN_LED   2
@@ -63,7 +63,7 @@ PIXEL_GRB g_BlkPixel = {0,0,0};
 
 class WS2812Strand {
   PIXEL_GRB pixelBuffer[PIXEL_CNT];
-  uint8_t *displayBuffer;
+  uint16_t *displayBuffer;
   uint32_t endTime;       // Latch timing reference
   uint8_t dataPin;
 
@@ -74,14 +74,14 @@ public:
   void begin();
   void fill(PIXEL_GRB *pixel);
   void show();
-  uint8_t *getDisplayBuffer() { return displayBuffer; }
+  uint16_t *getDisplayBuffer() { return displayBuffer; }
   void setPixel(uint16_t idx,PIXEL_GRB *p);
   PIXEL_GRB *getPixel(uint16_t idx) { return pixelBuffer + idx; }
 };
 
 WS2812Strand::WS2812Strand(uint8_t datapin)
 {
-  displayBuffer = (uint8_t *)pixelBuffer;
+  displayBuffer = (uint16_t *)pixelBuffer;
   dataPin = datapin;
   endTime = 0;
 }
@@ -95,7 +95,7 @@ void WS2812Strand::begin()
 
 void WS2812Strand::fill(PIXEL_GRB *pixel)
 {
-  for (uint8_t i=0;i < PIXEL_CNT;i++) {
+  for (uint16_t i=0;i < PIXEL_CNT;i++) {
     pixelBuffer[i] = *pixel;
   }
 }
@@ -111,7 +111,7 @@ void WS2812Strand::setPixel(uint16_t idx,PIXEL_GRB *p)
 #ifdef ESP8266
 // ESP8266 show() is external to enforce ICACHE_RAM_ATTR execution
 extern "C" void ICACHE_RAM_ATTR espShow(
-  uint8_t pin, uint8_t *pixels, uint32_t numBytes, uint8_t type);
+  uint8_t pin, uint16_t *pixels, uint32_t numBytes, uint8_t type);
 #endif // ESP8266
 
 void WS2812Strand::show()
@@ -173,19 +173,19 @@ void Btn::read()
       ((buttonState == BTN_STATE_SHORT) && lastDebounceTime)) {
     if (sample) {
       if (!lastDebounceTime && (buttonState == BTN_STATE_OFF)) {
-	lastDebounceTime = millis();
+	      lastDebounceTime = millis();
       }
       delta = millis() - lastDebounceTime;
 
       if (buttonState == BTN_STATE_OFF) {
-	if (delta >= BTN_PRESS_SHORT) {
-	  buttonState = BTN_STATE_SHORT;
-	}
+	      if (delta >= BTN_PRESS_SHORT) {
+	        buttonState = BTN_STATE_SHORT;
+	      }
       }
       else if (buttonState == BTN_STATE_SHORT) {
-	if (delta >= BTN_PRESS_LONG) {
-	  buttonState = BTN_STATE_LONG;
-	}
+	      if (delta >= BTN_PRESS_LONG) {
+	        buttonState = BTN_STATE_LONG;
+	      }
       }
     }
     else { //!sample
@@ -604,7 +604,7 @@ void initTest()
   delay(100);
 
   PIXEL_GRB p;
-  p.r = 127;
+  p.r = 80;
   p.g = 0;
   p.b = 0;
   leds.fill(&p);
@@ -612,7 +612,7 @@ void initTest()
   delay(1000);
 
   p.r = 0;
-  p.g = 127;
+  p.g = 80;
   p.b = 0;
   leds.fill(&p);
   leds.show();
@@ -620,7 +620,7 @@ void initTest()
 
   p.r = 0;
   p.g = 0;
-  p.b = 127;
+  p.b = 80;
   leds.fill(&p);
   leds.show();
   delay(1000);
